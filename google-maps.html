@@ -1,11 +1,18 @@
 <head>
   <title>Store locator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
-  <h1>Store locations - </h1>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4">
+        <h1>Store locations - </h1>
+      </div>
 
-  <div class="map-container">
-    {{> googleMap name="exampleMap" options=exampleMapOptions}}
+      <div class="map-container col-md-8">
+        {{> googleMap name="exampleMap" options=exampleMapOptions}}
+      </div>
+    </div>
   </div>
 </body>
