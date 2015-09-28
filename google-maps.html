@@ -8,6 +8,11 @@
     <div class="row">
       <div class="col-md-4">
         <h1>Store locations - </h1>
+        <ul>
+          {{#each stores}}
+            {{> store}}
+          {{/each}}
+        </ul>
       </div>
 
       <div class="map-container col-md-8">
@@ -16,3 +21,7 @@
     </div>
   </div>
 </body>
+
+<template name="store">
+  <li>{{text}}</li>
+</template>

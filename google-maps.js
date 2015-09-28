@@ -12,7 +12,12 @@ if (Meteor.isClient) {
           zoom: 12
         };
       }
-    }
+    },
+    stores: [
+      { text: "This is store 1" },
+      { text: "This is store 2" },
+      { text: "This is store 3" }
+    ]
   });
 
   Template.body.onCreated(function () {
