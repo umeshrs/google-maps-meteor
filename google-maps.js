@@ -1,3 +1,5 @@
+Stores = new Mongo.Collection("stores");
+
 if (Meteor.isClient) {
   Meteor.startup(function () {
     GoogleMaps.load();
@@ -8,16 +10,14 @@ if (Meteor.isClient) {
       // Make sure the maps API has loaded
       if (GoogleMaps.loaded()) {
         return {
-          center: new google.maps.LatLng(48.8588589, 2.3475569),
-          zoom: 12
+          center: new google.maps.LatLng(48.8588589, 2.340816),
+          zoom: 13
         };
       }
     },
-    stores: [
-      { text: "This is store 1" },
-      { text: "This is store 2" },
-      { text: "This is store 3" }
-    ]
+    stores: function () {
+      return Stores.find({}, {sort: {createdAt: 1}});
+    }
   });
 
   Template.body.onCreated(function () {
