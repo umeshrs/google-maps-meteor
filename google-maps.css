@@ -16,3 +16,25 @@ body {
   /*height: 600px;*/
   height: 100%;
 }
+
+#stores-list-container {
+  height: 100%;
+}
+
+#stores-list-container #stores-list {
+  height: calc(100% - 70px);
+  margin: 0px;
+  overflow-y: scroll;
+}
+
+#stores-list li {
+  padding: 5px 0px 5px 10px;
+  transition: background-color 0.2s, color 0.5s, padding 0.2s;
+}
+
+#stores-list li:hover {
+  cursor: pointer;
+  background-color: #333;
+  color: white;
+  padding-left: 30px;
+}

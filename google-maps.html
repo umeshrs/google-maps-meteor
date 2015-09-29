@@ -6,9 +6,9 @@
 <body>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-4" id="stores-list-container">
         <h1>Store locations - </h1>
-        <ul>
+        <ul class="list-unstyled" id="stores-list">
           {{#each stores}}
             {{> store}}
           {{/each}}
@@ -23,5 +23,12 @@
 </body>
 
 <template name="store">
-  <li>{{text}}</li>
+  <li>
+    <p>
+      <strong>{{text}}</strong><br />
+      ({{lat}}, {{lng}})<br />
+      {{streetAddress}}<br />
+      {{postalCode}} {{city}}, {{country}}<br />
+    </p>
+  </li>
 </template>
