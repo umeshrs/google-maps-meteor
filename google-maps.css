@@ -12,6 +12,10 @@ body {
   height: 100%;
 }
 
+.row.no-padding > [class|="col"] {
+  padding: 0px;
+}
+
 .map-container {
   /*height: 600px;*/
   height: 100%;

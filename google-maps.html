@@ -5,8 +5,8 @@
 
 <body>
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-4" id="stores-list-container">
+    <div class="row no-padding">
+      <div class="col-md-3" id="stores-list-container">
         <h1>Store locations - </h1>
         <ul class="list-unstyled" id="stores-list">
           {{#each stores}}
@@ -15,7 +15,7 @@
         </ul>
       </div>
 
-      <div class="map-container col-md-8">
+      <div class="col-md-9 map-container">
         {{> googleMap name="exampleMap" options=exampleMapOptions}}
       </div>
     </div>
