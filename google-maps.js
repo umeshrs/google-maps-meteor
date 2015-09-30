@@ -24,10 +24,22 @@ if (Meteor.isClient) {
     // We can use the 'ready' callback to interact with the map API once the map is ready
     GoogleMaps.ready('exampleMap', function(map) {
       // Add a marker to the map once it's ready
-      var marker = new google.maps.Marker({
-        position: map.options.center,
-        map: map.instance
-      });
+      var storesList, lat, lng, marker, i;
+
+      storesList = Stores.find({}, { sort: { createdAt: 1 }}).fetch();
+
+      for (i = 0; i < storesList.length; i++) {
+        lat = storesList[i].lat;
+        lng = storesList[i].lng;
+        console.log(storesList[i].text + ': ' + lat + ', ' + lng);
+        if (lat !== "" && lng !== "") {
+          marker = new google.maps.Marker({
+            position: new google.maps.LatLng(lat, lng),
+            title: storesList[i].text,
+            map: map.instance
+          });
+        }
+      }
     });
   });
 }
