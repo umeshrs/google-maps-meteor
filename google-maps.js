@@ -24,7 +24,7 @@ if (Meteor.isClient) {
     // We can use the 'ready' callback to interact with the map API once the map is ready
     GoogleMaps.ready('exampleMap', function(map) {
       // Add a marker to the map once it's ready
-      var storesList, markersList, lat, lng, i;
+      var storesList, markersList, lat, lng, i, infoWindow;
 
       storesList = Stores.find({}, { sort: { createdAt: 1 }}).fetch();
       markersList = [];
@@ -32,10 +32,16 @@ if (Meteor.isClient) {
       for (i = 0; i < storesList.length; i++) {
         lat = storesList[i].lat;
         lng = storesList[i].lng;
+        infoWindow = '<p>' +
+          '<strong>' + storesList[i].text + '</strong><br />' +
+          storesList[i].streetAddress + '<br />' +
+          storesList[i].postalCode + ' ' + storesList[i].city + ', ' + storesList[i].country + '<br />' +
+          '</p>';
         if (lat !== "" && lng !== "") {
           markersList.push({
             position: new google.maps.LatLng(+lat, +lng),
-            title: storesList[i].text
+            title: storesList[i].text,
+            infoWindow: infoWindow
           });
         }
       }
@@ -50,13 +56,23 @@ if (Meteor.isClient) {
     }
   }
 
-  var addMarkerWithTimeout = function (marker, map, timeout) {
+  var addMarkerWithTimeout = function (markerOptions, map, timeout) {
     window.setTimeout(function () {
+      var marker, infoWindow, i;
+
       marker = new google.maps.Marker({
-        position: marker.position,
-        title: marker.title,
+        position: markerOptions.position,
+        title: markerOptions.title,
         map: map,
         animation: google.maps.Animation.DROP
+      });
+
+      infoWindow = new google.maps.InfoWindow({
+        content: markerOptions.infoWindow
+      });
+
+      marker.addListener('click', function () {
+        infoWindow.open(map, marker);
       });
     }, timeout);
   }
