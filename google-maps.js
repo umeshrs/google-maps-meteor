@@ -74,6 +74,10 @@ if (Meteor.isClient) {
       marker.addListener('click', function () {
         infoWindow.open(map, marker);
       });
+
+      map.addListener('click', function () {
+        infoWindow.close();
+      });
     }, timeout);
   }
 }
