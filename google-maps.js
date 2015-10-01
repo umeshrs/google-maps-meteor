@@ -58,7 +58,7 @@ if (Meteor.isClient) {
 
   var addMarkerWithTimeout = function (markerOptions, map, timeout) {
     window.setTimeout(function () {
-      var marker, infoWindow, i;
+      var marker, infoWindow, storesList, i;
 
       marker = new google.maps.Marker({
         position: markerOptions.position,
@@ -70,6 +70,25 @@ if (Meteor.isClient) {
       infoWindow = new google.maps.InfoWindow({
         content: markerOptions.infoWindow
       });
+
+      storesList = document.getElementById("stores-list").getElementsByTagName("li");
+      for (i = 0; i < storesList.length; i++) {
+        if (storesList[i].getElementsByTagName("strong")[0].innerHTML === markerOptions.title) {
+          storesList[i].addEventListener('click', function () {
+            // using the z index property of info window object to store
+            // the toggle state of each info window
+            // undefined = closed; 1 = open;
+            if (infoWindow.getZIndex() === undefined) {
+              infoWindow.open(map, marker);
+              infoWindow.setZIndex(1);
+            }
+            else {
+              infoWindow.close();
+              infoWindow.setZIndex(undefined);
+            }
+          });
+        }
+      }
 
       marker.addListener('click', function () {
         infoWindow.open(map, marker);
