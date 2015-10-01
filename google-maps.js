@@ -57,7 +57,8 @@ if (Meteor.isClient) {
   }
 
   var addMarkerWithTimeout = function (markerOptions, map, timeout) {
-    window.setTimeout(function () {
+
+    var addMarker = function () {
       var marker, infoWindow, storesList, i;
 
       marker = new google.maps.Marker({
@@ -71,13 +72,29 @@ if (Meteor.isClient) {
         content: markerOptions.infoWindow
       });
 
+      // using the z index property of info window object to store
+      // the toggle state of each info window
+      // undefined = closed; 1 = open;
+
+      marker.addListener('click', function () {
+        infoWindow.open(map, marker);
+        infoWindow.setZIndex(1);
+      });
+
+      infoWindow.addListener('closeclick', function () {
+        infoWindow.close();
+        infoWindow.setZIndex(undefined);
+      });
+
+      map.addListener('click', function () {
+        infoWindow.close();
+        infoWindow.setZIndex(undefined);
+      });
+
       storesList = document.getElementById("stores-list").getElementsByTagName("li");
       for (i = 0; i < storesList.length; i++) {
         if (storesList[i].getElementsByTagName("strong")[0].innerHTML === markerOptions.title) {
           storesList[i].addEventListener('click', function () {
-            // using the z index property of info window object to store
-            // the toggle state of each info window
-            // undefined = closed; 1 = open;
             if (infoWindow.getZIndex() === undefined) {
               infoWindow.open(map, marker);
               infoWindow.setZIndex(1);
@@ -89,15 +106,9 @@ if (Meteor.isClient) {
           });
         }
       }
+    }
 
-      marker.addListener('click', function () {
-        infoWindow.open(map, marker);
-      });
-
-      map.addListener('click', function () {
-        infoWindow.close();
-      });
-    }, timeout);
+    window.setTimeout(addMarker, timeout);
   }
 }
 
