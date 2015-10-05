@@ -13,6 +13,8 @@
             {{> store}}
           {{/each}}
         </ul>
+        <input type="file" id="file-input" />
+        <button id="upload-button">Upload</button>
       </div>
 
       <div class="col-md-9 map-container">
@@ -25,7 +27,7 @@
 <template name="store">
   <li>
     <p>
-      <strong>{{text}}</strong><br />
+      <strong>{{name}}</strong><br />
       ({{lat}}, {{lng}})<br />
       {{streetAddress}}<br />
       {{postalCode}} {{city}}, {{country}}<br />

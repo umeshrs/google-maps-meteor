@@ -33,14 +33,14 @@ if (Meteor.isClient) {
         lat = storesList[i].lat;
         lng = storesList[i].lng;
         infoWindow = '<p>' +
-          '<strong>' + storesList[i].text + '</strong><br />' +
+          '<strong>' + storesList[i].name + '</strong><br />' +
           storesList[i].streetAddress + '<br />' +
           storesList[i].postalCode + ' ' + storesList[i].city + ', ' + storesList[i].country + '<br />' +
           '</p>';
         if (lat !== "" && lng !== "") {
           markersList.push({
             position: new google.maps.LatLng(+lat, +lng),
-            title: storesList[i].text,
+            title: storesList[i].name,
             infoWindow: infoWindow
           });
         }
