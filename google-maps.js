@@ -10,7 +10,7 @@ if (Meteor.isClient) {
       // Make sure the maps API has loaded
       if (GoogleMaps.loaded()) {
         return {
-          center: new google.maps.LatLng(48.8588589, 2.340816),
+          center: new google.maps.LatLng(48.8588589, 2.335864),
           zoom: 13
         };
       }
