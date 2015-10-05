@@ -20,6 +20,50 @@ if (Meteor.isClient) {
     }
   });
 
+  Template.body.events({
+    'click #upload-button': function () {
+      var config, i, storeDetails;
+
+      config = {
+        header: true,
+        dynamicTyping: true,
+        skipEmptyLines: true,
+        complete: function (results) {
+          console.log(results);
+
+          for (i = 0; i < results.data.length; i++) {
+            storeDetails = results.data[i];
+            Stores.insert({
+              name: storeDetails['storeName'],
+              lat: storeDetails['latitude'],
+              lng: storeDetails['longitude'],
+              streetAddress: storeDetails['address'],
+              postalCode: storeDetails['postalCode'],
+              city: storeDetails['city'],
+              country: storeDetails['country'],
+              telephone: storeDetails['telephone'],
+              createdAt: new Date()
+            });
+          }
+
+        }
+      };
+
+      $('#file-input').parse({
+        config: config,
+        before: function (file, inputElem) {
+          console.log("Parsing file...", file);
+        },
+        error: function (err, file) {
+          console.log("ERROR:", err, file);
+        },
+        complete: function (results) {
+          console.log("Parsing complete.");
+        }
+      });
+    }
+  });
+
   Template.body.onCreated(function () {
     // We can use the 'ready' callback to interact with the map API once the map is ready
     GoogleMaps.ready('exampleMap', function(map) {
