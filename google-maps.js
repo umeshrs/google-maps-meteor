@@ -42,6 +42,7 @@ if (Meteor.isClient) {
               city: storeDetails['city'],
               country: storeDetails['country'],
               telephone: storeDetails['telephone'],
+              taskStatus: storeDetails['taskStatus'],
               createdAt: new Date()
             });
           }
@@ -68,10 +69,11 @@ if (Meteor.isClient) {
     // We can use the 'ready' callback to interact with the map API once the map is ready
     GoogleMaps.ready('exampleMap', function(map) {
       // Add a marker to the map once it's ready
-      var storesList, markersList, lat, lng, i, infoWindow;
+      var storesList, markersList, lat, lng, i, infoWindow, iconBase, markerIcon;
 
       storesList = Stores.find({}, { sort: { createdAt: 1 }}).fetch();
       markersList = [];
+      iconBase = "http://maps.google.com/mapfiles/ms/icons/";
 
       for (i = 0; i < storesList.length; i++) {
         lat = storesList[i].lat;
@@ -81,11 +83,23 @@ if (Meteor.isClient) {
           storesList[i].streetAddress + '<br />' +
           storesList[i].postalCode + ' ' + storesList[i].city + ', ' + storesList[i].country + '<br />' +
           '</p>';
+        switch (storesList[i].taskStatus) {
+          case "NONE":
+            markerIcon = iconBase + "green-dot.png";
+            break;
+          case "PENDING":
+            markerIcon = iconBase + "orange-dot.png";
+            break;
+          case "OVERDUE":
+            markerIcon = iconBase + "red-dot.png";
+            break;
+        }
         if (lat !== "" && lng !== "") {
           markersList.push({
             position: new google.maps.LatLng(+lat, +lng),
             title: storesList[i].name,
-            infoWindow: infoWindow
+            infoWindow: infoWindow,
+            icon: markerIcon
           });
         }
       }
@@ -109,6 +123,7 @@ if (Meteor.isClient) {
         position: markerOptions.position,
         title: markerOptions.title,
         map: map,
+        icon: markerOptions.icon,
         animation: google.maps.Animation.DROP
       });
 
