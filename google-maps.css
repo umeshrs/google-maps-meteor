@@ -26,7 +26,7 @@ body {
 }
 
 #stores-list-container #stores-list {
-  height: calc(100% - 70px);
+  height: calc(100% - 70px - 120px);
   margin: 0px;
   overflow-y: scroll;
 }
@@ -41,4 +41,20 @@ body {
   background-color: #333;
   color: white;
   padding-left: 30px;
+}
+
+.file-upload-form {
+   padding: 0px 10px;
+   background-color: #EFEFEF;
+   border-top: 2px solid black;
+}
+
+.form-group {
+  margin-top: 5px;
+}
+
+.file-upload-form #upload-button {
+  float: right;
+  margin-bottom: 5px;
+  outline: none;
 }
