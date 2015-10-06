@@ -25,8 +25,13 @@ body {
   height: 100%;
 }
 
+#stores-list-container > h1 {
+  padding: 0px 0px 9px 5px;
+  border-bottom: 2px solid black;
+}
+
 #stores-list-container #stores-list {
-  height: calc(100% - 70px - 120px);
+  height: calc(100% - 80px - 120px);
   margin: 0px;
   overflow-y: scroll;
 }
@@ -54,7 +59,6 @@ body {
 }
 
 .file-upload-form #upload-button {
-  float: right;
   margin-bottom: 5px;
   outline: none;
 }

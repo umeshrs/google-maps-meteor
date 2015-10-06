@@ -42,7 +42,11 @@ if (Meteor.isClient) {
               city: storeDetails['city'],
               country: storeDetails['country'],
               telephone: storeDetails['telephone'],
-              taskStatus: storeDetails['taskStatus'],
+              task: {
+                title: storeDetails['taskTitle'],
+                description: storeDetails['taskDescription'],
+                status: storeDetails['taskStatus']
+              },
               createdAt: new Date()
             });
           }
@@ -83,15 +87,27 @@ if (Meteor.isClient) {
           storesList[i].streetAddress + '<br />' +
           storesList[i].postalCode + ' ' + storesList[i].city + ', ' + storesList[i].country + '<br />' +
           '</p>';
-        switch (storesList[i].taskStatus) {
+        switch (storesList[i].task.status) {
           case "NONE":
             markerIcon = iconBase + "green-dot.png";
+            infoWindow += '<p class="text-success">' +
+              '<strong>Task</strong><br />' +
+              'No pending task' +
+              '</p';
             break;
           case "PENDING":
             markerIcon = iconBase + "orange-dot.png";
+            infoWindow += '<p class="text-warning">' +
+              '<strong>Task</strong><br />' +
+              storesList[i].task.title +
+              '</p';
             break;
           case "OVERDUE":
             markerIcon = iconBase + "red-dot.png";
+            infoWindow += '<p class="text-danger">' +
+              '<strong>Task</strong><br />' +
+              storesList[i].task.title +
+              '</p';
             break;
         }
         if (lat !== "" && lng !== "") {
