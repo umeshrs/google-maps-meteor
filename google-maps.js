@@ -14,7 +14,10 @@ if (Meteor.isClient) {
           zoom: 13
         };
       }
-    },
+    }
+  });
+
+  Template.storesList.helpers({
     stores: function () {
       return Stores.find({}, {sort: {createdAt: 1}});
     }
@@ -37,10 +40,12 @@ if (Meteor.isClient) {
               name: storeDetails['storeName'],
               lat: storeDetails['latitude'],
               lng: storeDetails['longitude'],
-              streetAddress: storeDetails['address'],
-              postalCode: storeDetails['postalCode'],
-              city: storeDetails['city'],
-              country: storeDetails['country'],
+              address: {
+                street: storeDetails['street'],
+                postalCode: storeDetails['postalCode'],
+                city: storeDetails['city'],
+                country: storeDetails['country']
+              },
               telephone: storeDetails['telephone'],
               task: {
                 title: storeDetails['taskTitle'],
@@ -75,7 +80,7 @@ if (Meteor.isClient) {
       // Add a marker to the map once it's ready
       var storesList, markersList, lat, lng, i, infoWindow, iconBase, markerIcon;
 
-      storesList = Stores.find({}, { sort: { createdAt: 1 }}).fetch();
+      storesList = Stores.find({}, { sort: { lat: -1 }}).fetch();
       markersList = [];
       iconBase = "http://maps.google.com/mapfiles/ms/icons/";
 
@@ -139,8 +144,8 @@ if (Meteor.isClient) {
         position: markerOptions.position,
         title: markerOptions.title,
         map: map,
-        icon: markerOptions.icon,
-        animation: google.maps.Animation.DROP
+        icon: markerOptions.icon
+        // animation: google.maps.Animation.DROP
       });
 
       infoWindow = new google.maps.InfoWindow({

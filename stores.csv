@@ -1,4 +1,4 @@
-storeName,latitude,longitude,address,postalCode,city,country,telephone,taskTitle,taskDescription,taskStatus
+storeName,latitude,longitude,street,postalCode,city,country,telephone,taskTitle,taskDescription,taskStatus
 Store 1,48.827979,2.311687,80 Rue Jean-Pierre Timbaud,75011,Paris,France,,Finish survey#1.,,PENDING
 Store 2,48.837057,2.365026,Rue de l'Infirmerie,75013,Paris,France,,"Lorem ipsum dolor sit amet, consectetur adipisicing elit.",,PENDING
 Store 3,48.858304,2.29448,5 Avenue Anatole France,75007,Paris,France,,"Lorem ipsum dolor sit amet, consectetur adipisicing elit.",,OVERDUE

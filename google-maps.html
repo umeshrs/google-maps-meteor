@@ -8,20 +8,9 @@
     <div class="row no-padding">
       <div class="col-md-3" id="stores-list-container">
         <h1>Store locations - </h1>
-        <ul class="list-unstyled" id="stores-list">
-          {{#each stores}}
-            {{> store}}
-          {{/each}}
-        </ul>
-        <div class="file-upload-form clearfix">
-          <div class="form-group">
-            <label for="file-input">Upload CSV file</label>
-            <input type="file" id="file-input" class="form-control" />
-          </div>
-          <button id="upload-button" class="btn btn-primary pull-right">Upload</button>
-        </div>
+        {{> storesList}}
+        {{> fileUploadForm}}
       </div>
-
       <div class="col-md-9 map-container">
         {{> googleMap name="exampleMap" options=exampleMapOptions}}
       </div>
@@ -29,13 +18,31 @@
   </div>
 </body>
 
+<template name="storesList">
+  <ul class="list-unstyled" id="stores-list">
+    {{#each stores}}
+      {{> store}}
+    {{/each}}
+  </ul>
+</template>
+
 <template name="store">
   <li>
     <p>
       <strong>{{name}}</strong><br />
       ({{lat}}, {{lng}})<br />
-      {{streetAddress}}<br />
-      {{postalCode}} {{city}}, {{country}}<br />
+      {{address.street}}<br />
+      {{address.postalCode}} {{address.city}}, {{address.country}}<br />
     </p>
   </li>
+</template>
+
+<template name="fileUploadForm">
+  <div class="file-upload-form clearfix">
+    <div class="form-group">
+      <label for="file-input">Upload CSV file</label>
+      <input type="file" id="file-input" class="form-control" />
+    </div>
+    <button id="upload-button" class="btn btn-primary pull-right">Upload</button>
+  </div>
 </template>
