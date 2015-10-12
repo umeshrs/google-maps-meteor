@@ -89,8 +89,8 @@ if (Meteor.isClient) {
         lng = storesList[i].lng;
         infoWindow = '<p>' +
           '<strong>' + storesList[i].name + '</strong><br />' +
-          storesList[i].streetAddress + '<br />' +
-          storesList[i].postalCode + ' ' + storesList[i].city + ', ' + storesList[i].country + '<br />' +
+          storesList[i].address.street + '<br />' +
+          storesList[i].address.postalCode + ' ' + storesList[i].address.city + ', ' + storesList[i].address.country + '<br />' +
           '</p>';
         switch (storesList[i].task.status) {
           case "NONE":
